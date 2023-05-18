@@ -22,5 +22,6 @@ docker run -p 3000:8000 docker_zad1
 ![image](https://github.com/lukas5555510/DOCKER_ZAD1/assets/83607788/1c0ec094-6d2f-44b4-a4b6-7c89c68e5681)
 
 Widok strony:
+
 ![image](https://github.com/lukas5555510/DOCKER_ZAD1/assets/83607788/653e6369-0ee5-4ae8-bf91-3accfe0eea59)
 
