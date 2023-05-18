@@ -7,28 +7,26 @@ const PORT = 8000;
 
 // Funkcja obsługująca żądania klienta
 const handleRequest = (req, res) => {
-  const ip = clientIp.getClientIp(req).match(/(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)[0];
-  //console.log(ip);
+  const ip = clientIp.getClientIp(req).match(/(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)[0];//pobieranie adresu ip
   var timezone;
-  satelize.satelize({ip:ip}, function(err, payload) {
+  satelize.satelize({ip:ip}, function(err, payload) {//okreslenie strefy czasowej na podstawie ip
 try{
-  timezone = payload.timezone;
+  timezone = payload.timezone;//wyluskanie strefy czasowej z payloadu
 }catch(error)
 {
-  timezone = "Europe/Amsterdam";
+  timezone = "Europe/Amsterdam";//jesli nie da sie odczytac strefy czasowej z ip przypisuje domyslna
 }
 });
-  const clientTime = moment.tz(new Date(), timezone);
-  //const ip = req.socket.remoteAddress;
-  console.log(`Połączenie przychodzące z ip:${ip} , ${clientTime}`);
+  const clientTime = moment.tz(new Date(), timezone);//obliczenie godziny w wyluskanej wczesniej strefy czasowej
+  console.log(`Połączenie przychodzące z ip:${ip} , ${clientTime}`);// wypisanie w logach ip przychodzacego polaczenia i godziny
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write(`IP: ${ip}\n`);
-  res.write(`Data: ${clientTime}`);
+  res.write(`IP: ${ip}\n`);//wypisanie na stronie ip
+  res.write(`Data: ${clientTime}`);//wypisanie na stronie dany i godziny
   res.end();
 }
 
 // Utworzenie serwera i nasłuchiwanie na połączenia
 const server = http.createServer(handleRequest);
 server.listen(PORT, () => {
-  console.log(`Łukasz Kałuszyński server nasłuchuje na porcie:${PORT}.`);
+  console.log(`Łukasz Kałuszyński server nasłuchuje na porcie:${PORT}.`);// wypisanie w logach portu i autora
 });
